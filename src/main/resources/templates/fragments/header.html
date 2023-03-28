@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <aside>
+        <a href="/">홈</a>
+    </aside>
+    <th:block th:fragment="headerFragment(headerParam)">
+        <div>
+            <h2 th:text="${headerParam}"></h2>
+        </div>
+    </th:block>
+</html>

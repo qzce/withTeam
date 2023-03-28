@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <!-- head -->
+    <head>
+        <th:block th:replace="fragments/head :: headFragment"></th:block>
+        <script type="javascript">
+            function boardLink() {
+
+            }
+        </script>
+    </head>
+    <body class="container">
+    <!-- header -->
+        <div>
+            <th:block th:replace="fragments/header :: headerFragment('Header')"></th:block>
+        </div>
+
+        <div>
+            <a href="/board">게시판</a>
+        </div>
+
+        <div class="row">
+            <a href="/board/write">작성</a>
+        </div>
+        <div class="row">
+            <table class="table table-responsive">
+                <thead class="table-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="select-row" th:each="board : ${boardList}">
+                        <td th:text="${board.bid}"></td>
+                        <td>
+                            <a th:text="${board.title}" th:href="@{/board/{bid}(bid = ${board.bid})}"></a>
+                        </td>
+                        <td th:text="${#temporals.format(board.createDate, 'MM/dd HH:mm')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li th:if="${nowPage > pageRange}" class="page-item">
+                    <a class="page-link" th:href="@{/board(page = ${startPage - 1})}" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                        <li th:if="${page == nowPage}" class="page-item active">
+                            <a th:href="@{/board(page = ${page})}" th:text="${page}"></a>
+                        </li>
+                        <li th:if="${page != nowPage}" class="page-item">
+                            <a th:class="${pageStat.index}" th:href="@{/board(page = ${page})}" th:text="${page}"></a>
+                        </li>
+                    </th:block>
+
+                <li th:if="${nowPage < lastStartPage}" class="page-item">
+                    <a class="page-link" th:href="@{/board(page = ${endPage + 1})}" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- footer -->
+        <div>
+            <th:block th:replace="fragments/footer :: footerFragment('...')"></th:block>
+        </div>
+    </body>
+</html>
