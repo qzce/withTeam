@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- head -->
+<head>
+    <th:block th:replace="fragments/head :: headFragment"></th:block>
+</head>
+<body class="container">
+<!-- header -->
+<div>
+    <th:block th:replace="fragments/header :: headerFragment('로그인')"></th:block>
+</div>
+
+<!-- content -->
+<div class="container">
+    <div class="row">
+        <form id="save_sign" name="save_sign" action="/v1/api/login/sign" method="post">
+            <table class="table table-responsive">
+                <tr>
+                    <th>아이디</th>
+                    <td><input type="text" name="pid" placeholder="아이디"/></td>
+                </tr>
+                <tr>
+                    <th>비밀번호</th>
+                    <td><input type="password" name="password" placeholder="비밀번호"/></td>
+                </tr>
+                <tr>
+                    <th>비밀번호 확인</th>
+                    <td><input type="password" name="password_confirm" placeholder="비밀번호 확인"/></td>
+                </tr>
+                <tr>
+                    <th>이메일</th>
+                    <td>
+                        <input type="email" name="email" placeholder="이메일"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="button" onclick="signChk()" value="회원가입"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script>
+    function signChk() {
+        $.ajax({
+            type: "POST",
+            url: "/v1/api/sign",
+            data: JSON.stringify($('#save_sign').serializeObject()),
+            contentType: 'application/json'
+        })
+            .done(function (json){
+                location.href='/login';
+            })
+            .fail(function(xhr, status, errorThrown) {
+                console.log(xhr)
+                console.log(status)
+                console.log(errorThrown)
+            });
+    }
+</script>
+
+<!-- footer -->
+<div>
+    <th:block th:replace="fragments/footer :: footerFragment('...')"></th:block>
+</div>
+</body>
+</html>
