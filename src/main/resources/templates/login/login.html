@@ -4,38 +4,54 @@
 <head>
     <th:block th:replace="fragments/head :: headFragment"></th:block>
 </head>
-<body>
-<!-- header -->
-<div>
-    <th:block th:replace="fragments/header :: headerFragment('게시판')"></th:block>
-</div>
-<div class="container">
-    <div class="row">
-        <a href="/board/write">작성</a>
+<body class="container">
+    <!-- header -->
+    <div>
+        <th:block th:replace="fragments/header :: headerFragment('로그인')"></th:block>
     </div>
-    <div class="row">
-        <table class="table table-responsive">
-                <tr>
-                    <th>이름</th>
-                    <td><input type="text"></td>
-                    <th>작성일</th>
-                </tr>
-            <tbody>
-                <tr>
-                    <th>이름</th>
-                    <td><input type="text"></td>
-                </tr>
-                <tr>
-                    <th>비밀번호</th>
-                    <td><input type="password"></td>
-                </tr>
-            </tbody>
-        </table>
+
+    <!-- content -->
+    <div class="container">
+        <div class="row">
+            <form id="save_login" name="save_login" action="/v1/api/login" method="post">
+                <table class="table table-responsive">
+                    <tr>
+                        <th>아이디</th>
+                        <td><input type="text" name="pid" placeholder="아이디"/></td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호</th>
+                        <td><input type="password" name="password" placeholder="비밀번호"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="button" onclick="loginChk()" value="로그인"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </div>
-</div>
-<!-- footer -->
-<div>
-    <th:block th:replace="fragments/footer :: footerFragment('...')"></th:block>
-</div>
+
+    <script>
+        function loginChk() {
+            $.ajax({
+                type: "POST",
+                url: "/v1/api/login",
+                data: $('#save_login').serialize()
+            })
+                .done(function (json){
+                    location.href='/';
+                })
+                .fail(function(xhr, status, errorThrown) {
+                    console.log(xhr)
+                    console.log(status)
+                    console.log(errorThrown)
+                });
+        }
+    </script>
+
+    <!-- footer -->
+    <div>
+        <th:block th:replace="fragments/footer :: footerFragment('...')"></th:block>
+    </div>
 </body>
 </html>

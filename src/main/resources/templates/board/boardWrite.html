@@ -4,10 +4,10 @@
     <head>
         <th:block th:replace="fragments/head :: headFragment"></th:block>
     </head>
-    <body>
+    <body class="container">
     <!-- header -->
         <div>
-            <th:block th:replace="fragments/header :: headerFragment('header')"></th:block>
+            <th:block th:replace="fragments/header :: headerFragment('Header')"></th:block>
         </div>
 
         <!-- content -->
@@ -36,8 +36,6 @@
 
         <script>
             function boardSave() {
-                console.log('시작')
-                console.log($('#save_board').serialize())
                 $.ajax({
                     type: "POST",
                     url: "/v1/api/board",

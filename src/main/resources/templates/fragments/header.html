@@ -2,9 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <aside>
         <a href="/">홈</a>
+        <a href="/login">로그인</a>
     </aside>
     <th:block th:fragment="headerFragment(headerParam)">
         <div>
+            <a href="/">홈</a>
+            <a href="/login">로그인</a>
             <h2 th:text="${headerParam}"></h2>
         </div>
     </th:block>

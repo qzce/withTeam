@@ -13,11 +13,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long pno;
+
+    @Column(nullable = false)
+    private String pid;
 
     private String password;
 
-    @Column(nullable = false)
     private String name;
 
     @Column
@@ -28,7 +30,8 @@ public class User {
     private Role role;
 
     @Builder
-    public User(String name, String password, String email, Role role) {
+    public User(String pid, String name, String password, String email, Role role) {
+        this.pid = pid;
         this.name = name;
         this.password = password;
         this.email = email;

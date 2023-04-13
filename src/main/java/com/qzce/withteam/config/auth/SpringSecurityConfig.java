@@ -3,6 +3,7 @@ package com.qzce.withteam.config.auth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -23,7 +24,7 @@ public class SpringSecurityConfig {
                     .anyRequest().permitAll()
                 .and()
                     .formLogin()
-                        .loginPage("/login/login")
+                        .loginPage("/login/do")
                         .loginProcessingUrl("/login/chk")
                         .usernameParameter("id")
                         .passwordParameter("pw")

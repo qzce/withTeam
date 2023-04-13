@@ -25,16 +25,19 @@ public class BoardController {
 
         final int pageRange = 10;
 
-        int nowPage = list.getPageable().getPageNumber()+1;
+        int nowPage = list.getPageable().getPageNumber()+1; // 현재 페이지
+        int fitPage = (nowPage-1)/pageRange;                // 페이지 맞춤
 
-        int fitPage = (nowPage-1)/pageRange;
+        int startPage = fitPage * pageRange + 1;            // 시작 페이지
+        int endPage = fitPage * pageRange + pageRange;      // 끝 페이지
 
-        int startPage = fitPage * pageRange + 1;
-        int endPage = fitPage * pageRange + pageRange;
-
-        int totalPage = list.getTotalPages();
+        int totalPage = list.getTotalPages();               // 총 페이지
 
         int lastStartPage = totalPage / pageRange * pageRange + 1;
+
+        if(endPage > totalPage) {
+            endPage = totalPage;
+        }
 
         model.addAttribute("boardList", list);
         model.addAttribute("nowPage", nowPage);
